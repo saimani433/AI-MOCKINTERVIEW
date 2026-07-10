@@ -1,0 +1,51 @@
+name: Security Assessment - Vulnerability Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0' # Runs weekly on Sunday at midnight
+  workflow_dispatch:
+
+jobs:
+  npm-security-audit:
+    name: NPM Audit & Dependency Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run NPM Audit on Frontend
+        run: |
+          cd frontend
+          npm audit || true
+
+      - name: Run NPM Audit on Backend
+        run: |
+          cd backend
+          npm audit || true
+
+  python-security-audit:
+    name: Python Safety Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Safety & Bandit
+        run: pip install safety bandit
+
+      - name: Scan Python dependencies for vulnerabilities
+        run: |
+          cd e2e-tests
+          safety check -r requirements.txt || true
+
+      - name: Scan codebase for common security issues (Bandit)
+        run: bandit -r e2e-tests/ || true

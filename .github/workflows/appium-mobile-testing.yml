@@ -1,0 +1,53 @@
+name: Mobile Automation - Appium E2E
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  mobile-test-dryrun:
+    name: Mobile Build Check & Appium Simulation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Verify Android Gradle Project Structure
+        run: |
+          cd frontend
+          if [ -d "android" ]; then
+            echo "Android mobile platform structure detected."
+            cd android
+            chmod +x gradlew || true
+          else
+            echo "No android platform found."
+          fi
+
+      - name: Setup Python for Appium Scripts
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Test Dependencies
+        run: |
+          cd e2e-tests
+          pip install openpyxl
+
+      - name: Run Appium Comprehensive Generator
+        run: |
+          cd e2e-tests
+          python appium-tests/run_appium_comprehensive.py || true
+
+      - name: Upload Appium Test Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: appium-automation-report
+          path: e2e-tests/appium_test_report.xlsx

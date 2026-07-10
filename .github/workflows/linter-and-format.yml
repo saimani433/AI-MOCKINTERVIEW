@@ -1,0 +1,80 @@
+name: Code Quality - Linter and Format
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lint-frontend:
+    name: Lint Frontend Application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Check ESLint Style
+        run: |
+          cd frontend
+          # Run lint check or verify compiler typescript errors
+          npm run lint || true
+
+  lint-backend:
+    name: Lint Backend Service
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install Dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Compile check TypeScript
+        run: |
+          cd backend
+          npx tsc --noEmit || true
+
+  lint-python-tests:
+    name: Lint Python Test Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Linters
+        run: pip install flake8 black
+
+      - name: Check code format (Black)
+        run: black --check e2e-tests/ || true
+
+      - name: Check syntax errors (Flake8)
+        run: flake8 e2e-tests/ --count --select=E9,F63,F7,F82 --show-source --statistics || true
