@@ -1,0 +1,23 @@
+.env
+.env.*
+!.env.example
+
+**/node_modules/
+**/dist/
+**/__pycache__/
+**/.pytest_cache/
+**/*.pyc
+**/venv/
+**/.venv/
+**/oracleJdk-26/
+**/Test Results/
+
+**/*.mp4
+**/*.png
+
+AI-MOCK-INTERVIEW-main/
+.DS_Store
+Thumbs.db
+
+
+
