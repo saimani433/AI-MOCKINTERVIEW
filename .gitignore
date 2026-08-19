@@ -32,4 +32,6 @@ oracleJdk*
 __pycache__
 *.pyc
 db.json
+~$*
+
 
