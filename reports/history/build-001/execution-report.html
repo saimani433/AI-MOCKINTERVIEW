@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appium Android Test Execution Report - VocaVision AI</title>
+    <style>
+        :root {
+            --bg: #0F172A;
+            --card-bg: #1E293B;
+            --border: #334155;
+            --text: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent: #38BDF8;
+            --pass-bg: #064E3B;
+            --pass-text: #34D399;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 30px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--accent);
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .kpi-val {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 5px;
+            color: #FFF;
+        }
+        .kpi-val.pass { color: var(--pass-text); }
+        .kpi-lbl { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: #0F172A;
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .badge-pass {
+            background: var(--pass-bg);
+            color: var(--pass-text);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>VocaVision AI - Android Appium E2E Test Report</h1>
+                <p style="color: var(--text-muted); margin: 5px 0 0 0;">Build #: 001 | Execution Timestamp: 2026-08-19 10:30:33 UTC</p>
+            </div>
+            <div>
+                <span class="badge-pass" style="font-size: 16px; padding: 8px 16px;">100% PASSED</span>
+            </div>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-lbl">Total Tests</div><div class="kpi-val">4</div></div>
+            <div class="kpi-card"><div class="kpi-lbl">Passed</div><div class="kpi-val pass">4</div></div>
+            <div class="kpi-card"><div class="kpi-lbl">Failed</div><div class="kpi-val">0</div></div>
+            <div class="kpi-card"><div class="kpi-lbl">Pass Rate</div><div class="kpi-val pass">100.0%</div></div>
+            <div class="kpi-card"><div class="kpi-lbl">Duration</div><div class="kpi-val">5.72s</div></div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Test ID</th>
+                    <th>Module</th>
+                    <th>Description</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>TC-APP-001</td>
+                    <td>App Launch</td>
+                    <td>Verify Native Android App Launches Cleanly</td>
+                    <td>1.42s</td>
+                    <td><span class="badge-pass">PASSED</span></td>
+                </tr>
+                <tr>
+                    <td>TC-APP-002</td>
+                    <td>Navigation</td>
+                    <td>Verify Bottom Navigation View & Routes</td>
+                    <td>0.85s</td>
+                    <td><span class="badge-pass">PASSED</span></td>
+                </tr>
+                <tr>
+                    <td>TC-APP-003</td>
+                    <td>Permissions</td>
+                    <td>Verify Microphone Device Permission Prompt</td>
+                    <td>1.10s</td>
+                    <td><span class="badge-pass">PASSED</span></td>
+                </tr>
+                <tr>
+                    <td>TC-APP-004</td>
+                    <td>Voice Stream</td>
+                    <td>Verify Real-Time Voice Interview Stream</td>
+                    <td>2.35s</td>
+                    <td><span class="badge-pass">PASSED</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
