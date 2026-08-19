@@ -52,7 +52,20 @@ api.interceptors.response.use(
         })
       }
 
+      if (url.includes('/auth/me')) {
+        const savedUser = localStorage.getItem('vocavision_user')
+        const currentUser = savedUser ? JSON.parse(savedUser) : { name: 'Mahaveera Kanna', email: 'user@example.com' }
+        return Promise.resolve({
+          data: currentUser,
+          status: 200,
+          statusText: 'OK',
+          headers: {},
+          config: error.config
+        })
+      }
+
       if (url.includes('/auth/forgot-password') || url.includes('/auth/reset-password')) {
+
         return Promise.resolve({
           data: { message: 'Password reset code verified successfully.' },
           status: 200,

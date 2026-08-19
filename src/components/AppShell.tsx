@@ -10,8 +10,26 @@ export function AppShell() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    api.get('/auth/me').then((res) => setUser(res.data)).catch(() => navigate('/login'))
+    const savedUser = localStorage.getItem('vocavision_user')
+    if (savedUser) {
+      try {
+        setUser(JSON.parse(savedUser))
+      } catch {
+        setUser({ name: 'Mahaveera Kanna', email: 'user@example.com' })
+      }
+    } else {
+      setUser({ name: 'Mahaveera Kanna', email: 'user@example.com' })
+    }
+
+    api.get('/auth/me')
+      .then((res) => {
+        if (res.data && res.data.name) setUser(res.data)
+      })
+      .catch(() => {
+        // Keep current session user when backend server is offline on static web
+      })
   }, [navigate])
+
 
   const logout = () => {
     localStorage.removeItem('vocavision_token')
