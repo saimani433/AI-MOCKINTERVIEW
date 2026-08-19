@@ -290,23 +290,13 @@ for item in os.listdir(SCREENSHOTS_DIR):
     shutil.copy(os.path.join(SCREENSHOTS_DIR, item), os.path.join(latest_sc_dir, item))
 shutil.copy(log_file, os.path.join(latest_logs_dir, "execution.log"))
 
-# Populate root index.html redirect for GitHub Pages root URL
-root_index = os.path.join(REPORTS_DIR, "index.html")
-with open(root_index, "w", encoding="utf-8") as f:
-    f.write("""<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="refresh" content="0; url=latest/execution-report.html">
-    <script>window.location.href = "latest/execution-report.html";</script>
-</head>
-<body>
-    <p>Redirecting to <a href="latest/execution-report.html">Latest Appium Test Report</a>...</p>
-</body>
-</html>""")
+# Copy reports to dist/reports if dist directory exists
+dist_dir = os.path.join(BASE_DIR, "dist")
+if os.path.exists(dist_dir):
+    dist_reports = os.path.join(dist_dir, "reports")
+    shutil.copytree(REPORTS_DIR, dist_reports, dirs_exist_ok=True)
 
 # Copy to history build directory
 shutil.copytree(LATEST_DIR, HISTORY_BUILD_DIR, dirs_exist_ok=True)
-
-
 
 print("SUCCESS: All reports generated and organized for GitHub Pages deployment!")

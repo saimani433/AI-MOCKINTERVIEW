@@ -46,10 +46,12 @@ jobs:
           pip install openpyxl Appium-Python-Client pytest selenium jinja2 requests
           npm install -g appium
 
-      - name: Start Appium Server & Generate Reports
+      - name: Build Web Application & Generate Reports
         env:
           BUILD_NUMBER: ${{ github.run_number }}
         run: |
+          npm ci
+          npm run build
           appium --log-level error &
           sleep 5
           python e2e-tests/generate_exact_reports.py
@@ -58,18 +60,14 @@ jobs:
         if: always()
         run: |
           cat << 'EOF' >> $GITHUB_STEP_SUMMARY
-          # Android Appium Test Summary
+          # VocaVision AI Application & Appium Test Summary
 
           **Build Number**: ${{ github.run_number }}
           **Execution Date**: $(date -u)
 
-          - **Total Tests**: 4
-          - **Passed**: 4
-          - **Failed**: 0
+          - **Live Web Application**: [https://saimani433.github.io/AI-MOCKINTERVIEW/](https://saimani433.github.io/AI-MOCKINTERVIEW/)
+          - **Appium Test Report**: [https://saimani433.github.io/AI-MOCKINTERVIEW/reports/latest/execution-report.html](https://saimani433.github.io/AI-MOCKINTERVIEW/reports/latest/execution-report.html)
           - **Pass Rate**: **100.0%**
-
-          ### Live HTML Report URL:
-          [https://saimani433.github.io/AI-MOCKINTERVIEW/reports/latest/execution-report.html](https://saimani433.github.io/AI-MOCKINTERVIEW/reports/latest/execution-report.html)
           EOF
 
       - name: Upload Test Results Artifacts
@@ -93,17 +91,18 @@ jobs:
         if: always() && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './reports'
+          path: './dist'
 
       - name: Deploy Native GitHub Pages
         if: always() && github.ref == 'refs/heads/main'
         uses: actions/deploy-pages@v4
 
-      - name: Deploy Reports to gh-pages Branch
+      - name: Deploy Dist to gh-pages Branch
         if: always() && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports
+          publish_dir: ./dist
           keep_files: true
+
 
