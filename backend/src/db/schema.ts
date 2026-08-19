@@ -48,6 +48,14 @@ create table if not exists reports (
   created_at timestamptz not null default now()
 );
 
+create table if not exists password_resets (
+  id uuid primary key default uuid_generate_v4(),
+  email text not null,
+  otp text not null,
+  expires_at timestamptz not null,
+  created_at timestamptz not null default now()
+);
+
 alter table interviews add column if not exists job_description text default '';
 alter table interviews add column if not exists difficulty text not null default 'intermediate';
 alter table interviews add column if not exists questions jsonb default '[]'::jsonb;
@@ -55,6 +63,21 @@ alter table interviews add column if not exists completed_at timestamptz;
 alter table reports add column if not exists analysis jsonb default '{}'::jsonb;
 `
 
-await pool.query(schema)
+const statements = schema
+  .split(';')
+  .map(s => s.trim())
+  .filter(s => s.length > 0)
+
+for (const statement of statements) {
+  try {
+    await pool.query(statement)
+  } catch (err: any) {
+    // Ignore duplicate relation/column errors during migrations
+    if (!err.message.includes('already exists') && !err.message.includes('already a column')) {
+      throw err;
+    }
+  }
+}
+
 console.log('Database schema is ready.')
 await pool.end()

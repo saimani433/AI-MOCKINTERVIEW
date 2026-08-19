@@ -1,23 +1,35 @@
-.env
-.env.*
-!.env.example
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-**/node_modules/
-**/dist/
-**/__pycache__/
-**/.pytest_cache/
-**/*.pyc
-**/venv/
-**/.venv/
-**/oracleJdk-26/
-**/Test Results/
+node_modules
+dist
+dist-ssr
+*.local
 
-**/*.mp4
-**/*.png
-
-AI-MOCK-INTERVIEW-main/
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-
+# Environment & Virtualenvs & Binaries
+.env
+*.env
+venv
+.venv
+oracleJdk*
+__pycache__
+*.pyc
+db.json
 

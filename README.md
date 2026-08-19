@@ -1,40 +1,53 @@
-# VocaVision AI
+# VocaVision AI (Web & Android Application)
 
-AI-powered intelligent mock interview and candidate performance analysis system using NLP, computer vision, OpenRouter AI, Neon Postgres, React, Express, Node, TypeScript, Tailwind CSS, and Python.
+AI-powered intelligent mock interview and candidate performance analysis system. Both the Web application (React + Vite) and native Android application (Capacitor) share the same root workspace folder.
 
-## Structure
+## Project Structure
 
-- `frontend` - React + TypeScript + Tailwind dashboard and landing experience
-- `backend` - Express + TypeScript API, Neon Postgres schema, OpenRouter integration
-- `backend/python-ai-service` - FastAPI service placeholder for OpenCV/MediaPipe analysis
+```
+├── android/               # Capacitor Native Android project
+├── src/                   # React + TypeScript source code (Web & Android UI)
+├── public/                # Web & App public assets
+├── backend/               # Express + TypeScript API backend
+├── capacitor.config.ts    # Capacitor configuration
+├── vite.config.ts         # Vite build configuration
+├── package.json           # Web & Android scripts & dependencies
+└── index.html             # Application entry HTML
+```
 
-## Run locally
+## Running the Application
+
+### 1. Web & Android Application (Root Directory)
+
+Install dependencies and start development server:
 
 ```bash
-cd frontend
 npm install
-npm run dev -- --host 127.0.0.1 --port 5188
+npm run dev
 ```
+
+### 2. Android Commands
+
+Sync web build with Android native app or open Android Studio:
+
+```bash
+# Build web app and sync to Android native project
+npm run android:sync
+
+# Open project in Android Studio
+npm run android:open
+```
+
+### 3. Backend API Service
 
 ```bash
 cd backend
 npm install
-copy .env.example .env
-npm run db:schema
 npm run dev
 ```
 
+### 4. Running Web & Mobile Tunnels
+
 ```bash
-cd backend/python-ai-service
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8001
+node start-tunnels.js
 ```
-
-## Functional flow
-
-1. Sign up or login.
-2. Open Interview and create a role-specific session.
-3. The backend stores the session in Neon Postgres and generates questions through OpenRouter.
-4. Answer each question in the interview room.
-5. The backend scores the answer, stores NLP/CV feedback, and updates session progress.
-6. Complete the interview to generate and save a final report.

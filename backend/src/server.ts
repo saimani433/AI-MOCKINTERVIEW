@@ -22,13 +22,27 @@ const allowedOrigins = new Set([
 
 app.use(cors({
   origin(origin, callback) {
-    if (!origin || allowedOrigins.has(origin)) {
-      callback(null, true)
-      return
+    if (!origin) return callback(null, true)
+
+    if (
+      allowedOrigins.has(origin) ||
+      origin.endsWith('.loca.lt') ||
+      origin.endsWith('.ngrok-free.app') ||
+      origin.endsWith('.ngrok.io') ||
+      origin === 'capacitor://localhost' ||
+      /^http:\/\/(192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[0-1])\.\d+\.\d+)(:\d+)?$/.test(origin)
+    ) {
+      return callback(null, true)
     }
+
+    if (process.env.NODE_ENV !== 'production') {
+      return callback(null, true)
+    }
+
     callback(new Error(`CORS blocked origin: ${origin}`))
   },
   credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'bypass-tunnel-reminder', 'ngrok-skip-browser-warning', 'x-requested-with'],
 }))
 app.use(express.json({ limit: '10mb' }))
 
