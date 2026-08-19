@@ -85,10 +85,25 @@ jobs:
             e2e-tests/Test Results/Summary/
           retention-days: 30
 
-      - name: Deploy Reports to GitHub Pages
+      - name: Setup Pages
+        if: always() && github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        if: always() && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './reports'
+
+      - name: Deploy Native GitHub Pages
+        if: always() && github.ref == 'refs/heads/main'
+        uses: actions/deploy-pages@v4
+
+      - name: Deploy Reports to gh-pages Branch
         if: always() && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./reports
           keep_files: true
+
