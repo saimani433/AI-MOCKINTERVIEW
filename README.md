@@ -2,6 +2,13 @@
 
 AI-powered intelligent mock interview and candidate performance analysis system. Both the Web application (React + Vite) and native Android application (Capacitor) share the same root workspace folder.
 
+## 🚀 Live Demo & Online Reports
+
+- **🌐 Live GitHub Pages Site**: [https://saimani433.github.io/AI-MOCKINTERVIEW/](https://saimani433.github.io/AI-MOCKINTERVIEW/)
+- **📊 Appium E2E HTML Report**: [https://saimani433.github.io/AI-MOCKINTERVIEW/latest/execution-report.html](https://saimani433.github.io/AI-MOCKINTERVIEW/latest/execution-report.html)
+- **📈 Comprehensive Excel Test Suite (2,400 Cases - 100% Pass Rate)**: [`e2e-tests/excel_reports/Master_Comprehensive_Test_Suite_2400.xlsx`](./e2e-tests/excel_reports/Master_Comprehensive_Test_Suite_2400.xlsx)
+
+
 ## Project Structure
 
 ```
